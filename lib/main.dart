@@ -1,67 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_routine/constants/theme.dart';
+import 'package:smart_routine/controllers/theme_controller.dart';
+//import 'package:smart_routine/providers/database_provider.dart';
+//import 'package:smart_routine/views/screens/home_screen.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  //await DatabaseProvider.initDb();
+  await GetStorage.init();
+  await ScreenUtil.ensureScreenSize();
+
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  runApp(
+    MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({Key? key}) : super(key: key);
+
+  final ThemeController _themeController = Get.put(ThemeController());
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter TODO App',
+          theme: Themes.lightTheme,
+          themeMode: _themeController.theme,
+          darkTheme: Themes.darkTheme,
+          home: child,
+        );
+      },
+      // child: HomeScreen(),
     );
   }
 }
