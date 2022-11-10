@@ -111,18 +111,42 @@ class AddTaskScreen extends StatelessWidget {
                   )
                 ],
               ),
-              Column(
-                //quitar el margin entre rows
-                children: [
-                  Row(children: [
-                    Expanded(child: InputField(hint: '1', title: '')),
-                    Expanded(child: InputField(hint: '2', title: ''))
-                  ]),
-                  Row(children: [
-                    Expanded(child: InputField(hint: '3', title: '')),
-                    Expanded(child: InputField(hint: '4', title: ''))
-                  ]),
-                ],
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 0, vertical: 30),
+                child: Column(
+                  //quitar el margin entre rows
+                  children: [
+                    Row(children: [
+                      Expanded(
+                          child: Button(
+                              label: 'Diariamente',
+                              onTap: (() => _validateTask()))),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Expanded(
+                          child: Button(
+                              label: 'Semanalmente',
+                              onTap: (() => _validateTask()))),
+                    ]),
+                    SizedBox(
+                      height: 10.w,
+                    ),
+                    Row(children: [
+                      Expanded(
+                          child: Button(
+                              label: 'Mensualmente',
+                              onTap: (() => _validateTask()))),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Expanded(
+                          child: Button(
+                              label: 'Una vez',
+                              onTap: (() => _validateTask()))),
+                    ]),
+                  ],
+                ),
               ),
               InputField(
                 hint: DateFormat.yMd().format(_addTaskController.selectedDate),
