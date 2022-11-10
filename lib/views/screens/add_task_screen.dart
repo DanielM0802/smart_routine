@@ -361,7 +361,7 @@ class AddTaskScreen extends StatelessWidget {
         ),
       ),
       title: Text(
-        'Add Task',
+        'Nuevo Hábito',
         style: GoogleFonts.lato(
             fontSize: 20.sp,
             fontWeight: FontWeight.bold,

@@ -60,16 +60,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset('assets/appicon.png'),
-                                Text('You do not have any tasks yet!',
+                                Text('No hay hábitos para este día',
                                     style: GoogleFonts.lato(
-                                      fontSize: 14.sp,
+                                      fontSize: 24.sp,
                                     )),
-                                Text(
-                                    'Add new tasks to make your day productive',
-                                    style: GoogleFonts.lato(
-                                      fontSize: 14.sp,
-                                    ))
                               ],
                             ),
                           ),
@@ -81,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: GestureDetector(
                       onTap: () => Get.to(() => AllTasksScreen()),
                       child: Text(
-                        'Show all tasks',
+                        '',
                         style: Themes().headingTextStyle,
                       )),
                 )
@@ -231,7 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       centerTitle: true,
       title: Text(
-        'My Tasks',
+        'Hoy',
         style: GoogleFonts.lato(
           color: _themeController.color,
           fontWeight: FontWeight.bold,
