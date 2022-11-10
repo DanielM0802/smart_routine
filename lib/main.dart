@@ -3,14 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_routine/constants/theme.dart';
 import 'package:smart_routine/controllers/theme_controller.dart';
-//import 'package:smart_routine/providers/database_provider.dart';
-//import 'package:smart_routine/views/screens/home_screen.dart';
+import 'package:smart_routine/providers/database_provider.dart';
+import 'package:smart_routine/views/screens/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //await DatabaseProvider.initDb();
+  await DatabaseProvider.initDb();
   await GetStorage.init();
   await ScreenUtil.ensureScreenSize();
 
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      // child: HomeScreen(),
+      child: HomeScreen(),
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:smart_routine/models/task.dart';
-//import 'package:smart_routine/providers/database_provider.dart';
+import 'package:smart_routine/providers/database_provider.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
@@ -19,20 +19,18 @@ class HomeController extends GetxController {
 
   getTasks() async {
     final List<Task> tasksFromDB = [];
-    // List<Map<String, dynamic>> tasks = await DatabaseProvider.queryTasks();
-    // tasksFromDB.assignAll(
-    //     tasks.reversed.map((data) => Task().fromJson(data)).toList());
-    // _myTasks.value = tasksFromDB;
+    List<Map<String, dynamic>> tasks = await DatabaseProvider.queryTasks();
+    tasksFromDB.assignAll(
+        tasks.reversed.map((data) => Task().fromJson(data)).toList());
+    _myTasks.value = tasksFromDB;
   }
 
   Future<int> deleteTask(String id) async {
-    return 0;
-    //return await DatabaseProvider.deleteTask(id);
+    return await DatabaseProvider.deleteTask(id);
   }
 
   Future<int> upDateTask(String id) async {
-    return 0;
-    //return await DatabaseProvider.updateTask(id);
+    return await DatabaseProvider.updateTask(id);
   }
 
   updateSelectedDate(DateTime date) {

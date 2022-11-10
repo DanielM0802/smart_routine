@@ -1,5 +1,5 @@
 import 'package:smart_routine/models/task.dart';
-//import 'package:smart_routine/providers/database_provider.dart';
+import 'package:smart_routine/providers/database_provider.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -51,7 +51,7 @@ class AddTaskController extends GetxController {
     _selectedColorIndex.value = index;
   }
 
-  // Future<int> addTaskToDB(Task task) async {
-  //   return await DatabaseProvider.insertTask(task);
-  // }
+  Future<int> addTaskToDB(Task task) async {
+    return await DatabaseProvider.insertTask(task);
+  }
 }
