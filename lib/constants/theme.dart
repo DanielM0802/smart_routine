@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smart_routine/constants/colors.dart';
 
 class Themes {
   static final lightTheme = ThemeData(
@@ -13,7 +14,7 @@ class Themes {
   );
   static final darkTheme = ThemeData(
     brightness: Brightness.dark,
-    scaffoldBackgroundColor: Colors.black,
+    scaffoldBackgroundColor: bgColor,
   );
 
   TextStyle get subHeadingTextStyle => GoogleFonts.lato(

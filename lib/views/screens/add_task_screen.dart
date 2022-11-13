@@ -59,7 +59,6 @@ class AddTaskScreen extends StatelessWidget {
                     child: InputField(
                       hint: '30',
                       title: '¿Cuántos minutos?',
-                      controller: _titleController,
                     ),
                   ),
                   SizedBox(
@@ -148,9 +147,40 @@ class AddTaskScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              Row(
+                children: [
+                  Expanded(
+                      child: Button(label: '1', onTap: (() => print('1')))),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Expanded(
+                      child: Button(label: '2', onTap: (() => print('1')))),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Expanded(
+                      child: Button(label: '3', onTap: (() => print('1')))),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Expanded(
+                      child: Button(label: '4', onTap: (() => print('1')))),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Expanded(
+                      child: Button(label: '5', onTap: (() => print('1')))),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Expanded(
+                      child: Button(label: '6', onTap: (() => print('1')))),
+                ],
+              ),
               InputField(
                 hint: DateFormat.yMd().format(_addTaskController.selectedDate),
-                title: 'Date',
+                title: 'Comenzaré el',
                 widget: IconButton(
                   onPressed: () => _getDateFromUser(context),
                   icon: Icon(
@@ -163,24 +193,8 @@ class AddTaskScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: InputField(
-                      hint: _addTaskController.selectedStartTime,
-                      title: 'Start Date',
-                      widget: IconButton(
-                        onPressed: () => _getTimeFromUser(context, true),
-                        icon: Icon(
-                          Icons.access_time_rounded,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Expanded(
-                    child: InputField(
                       hint: _addTaskController.selectedEndTime,
-                      title: 'End Date',
+                      title: 'Recuerdame a las:',
                       widget: IconButton(
                         onPressed: () => _getTimeFromUser(context, false),
                         icon: Icon(
@@ -192,98 +206,12 @@ class AddTaskScreen extends StatelessWidget {
                   )
                 ],
               ),
-              InputField(
-                hint: '${_addTaskController.selectedReminder} minutes early',
-                title: 'Reminder',
-                widget: SizedBox(
-                  width: 50.w,
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton2(
-                      customButton: Icon(
-                        Icons.keyboard_arrow_down_sharp,
-                        color: Colors.grey,
-                      ),
-                      //customItemsIndexes: reminderList,
-                      //customItemsHeights: [8],
-                      items: [
-                        ...reminderList.map(
-                          (item) => DropdownMenuItem<String>(
-                            value: item.toString(),
-                            child: Text(
-                              item.toString(),
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                      onChanged: (val) => _addTaskController
-                          .updateSelectedReminder(int.parse(val.toString())),
-                      itemHeight: 30.h,
-                      dropdownPadding: EdgeInsets.all(
-                        8,
-                      ),
-                      dropdownWidth: 80.w,
-                      dropdownDecoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          10.r,
-                        ),
-                      ),
-                      dropdownElevation: 1,
-                    ),
-                  ),
-                ),
-              ),
-              InputField(
-                hint: _addTaskController.selectedRepeat,
-                title: 'Repeat',
-                widget: SizedBox(
-                  width: 50.w,
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton2(
-                      customButton: Icon(
-                        Icons.keyboard_arrow_down_sharp,
-                        color: Colors.grey,
-                      ),
-                      //customItemsHeight: 8.h,
-                      items: [
-                        ...repeatList.map(
-                          (item) => DropdownMenuItem<String>(
-                            value: item.toString(),
-                            child: Text(
-                              item.toString(),
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                      onChanged: (val) => _addTaskController
-                          .updateSelectedRepeat(val.toString()),
-                      itemHeight: 30.h,
-                      dropdownPadding: EdgeInsets.all(
-                        8,
-                      ),
-                      dropdownWidth: 110.w,
-                      dropdownDecoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          10.r,
-                        ),
-                      ),
-                      dropdownElevation: 1,
-                    ),
-                  ),
-                ),
-              ),
               SizedBox(
                 height: 15.h,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  _colorPallete(),
                   Button(label: 'Create Task', onTap: () => _validateTask())
                 ],
               )
@@ -312,13 +240,13 @@ class AddTaskScreen extends StatelessWidget {
       //await _addTaskController.addTaskToDB(task);
       Get.back();
     } else {
-      Get.snackbar(
-        'Required',
-        'All fields are required',
-        backgroundColor:
-            Get.isDarkMode ? Color(0xFF212121) : Colors.grey.shade100,
-        colorText: pinkClr,
-      );
+      // Get.snackbar(
+      //   'Required',
+      //   'All fields are required',
+      //   backgroundColor:
+      //       Get.isDarkMode ? Color(0xFF212121) : Colors.grey.shade100,
+      //   colorText: pinkClr,
+      // );
     }
   }
 
