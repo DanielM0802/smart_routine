@@ -29,22 +29,22 @@ class _StatsScreenState extends State<StatsScreen> {
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
               height: 25.h,
             ),
-            SizedBox(
-                height: 35.h,
-                width: 346.w,
-                child: const DecoratedBox(
+            const FittedBox(
+                fit: BoxFit.fill,
+                child: DecoratedBox(
                   decoration: BoxDecoration(
                       color: pinkClr,
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 346 / 2, vertical: 10),
                       child: Text(
                         "Hábitos",
                         style: TextStyle(
@@ -76,15 +76,14 @@ class _StatsScreenState extends State<StatsScreen> {
   _recordStats() {
     return Row(
       children: [
-        SizedBox(
-          height: 155.h,
-          width: ((346 - 40) / 2).w,
+        FittedBox(
+          fit: BoxFit.fill,
           child: DecoratedBox(
               decoration: const BoxDecoration(
                   color: primaryColor,
                   borderRadius: BorderRadius.all(Radius.circular(5))),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
+                padding: const EdgeInsets.fromLTRB(22, 20, 22, 27),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -106,11 +105,10 @@ class _StatsScreenState extends State<StatsScreen> {
               )),
         ),
         const SizedBox(
-          width: 30,
+          width: 113,
         ),
-        SizedBox(
-          height: 155.h,
-          width: ((346 - 40) / 2).w,
+        FittedBox(
+          fit: BoxFit.fill,
           child: DecoratedBox(
               decoration: const BoxDecoration(
                   color: primaryColor,
@@ -143,41 +141,44 @@ class _StatsScreenState extends State<StatsScreen> {
   }
 
   _currentRampage() {
-    return SizedBox(
-      height: 105.h,
-      width: 346.w,
+    return FittedBox(
+      fit: BoxFit.fill,
       child: DecoratedBox(
           decoration: const BoxDecoration(
               color: primaryColor,
               borderRadius: BorderRadius.all(Radius.circular(5))),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: const EdgeInsets.fromLTRB(20, 20, 40, 20),
             child: Row(
               children: [
-                Flexible(
-                  flex: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Tu racha actual",
-                          style: Themes().subHeadingTextStyle),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      Text(
-                          "El número consecutivo de los días en los que completaste todos tus hábitos",
-                          style: Themes().subTitleStyle),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      Text("3 Dias", style: Themes().subTitleStyle)
-                    ],
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Tu racha actual",
+                        style: Themes().subHeadingTextStyle),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Text("El número consecutivo de los días",
+                        style: Themes().subTitleStyle),
+                    SizedBox(
+                      height: 1.h,
+                    ),
+                    Text("en los que completaste todos tus hábitos",
+                        style: Themes().subTitleStyle),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Text("3 Dias", style: Themes().subTitleStyle)
+                  ],
+                ),
+                SizedBox(
+                  width: 40.w,
                 ),
                 const Icon(
                   Icons.flash_on,
                   color: pinkClr,
-                  size: 24.0,
+                  size: 40.0,
                 ),
               ],
             ),
@@ -186,41 +187,41 @@ class _StatsScreenState extends State<StatsScreen> {
   }
 
   _rampageDays() {
-    return SizedBox(
-      height: 105.h,
-      width: 346.w,
+    return FittedBox(
+      fit: BoxFit.fill,
       child: DecoratedBox(
           decoration: const BoxDecoration(
               color: primaryColor,
               borderRadius: BorderRadius.all(Radius.circular(5))),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: const EdgeInsets.fromLTRB(20, 20, 40, 20),
             child: Row(
               children: [
-                Flexible(
-                  flex: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Total de días magníficos",
-                          style: Themes().subHeadingTextStyle),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      Text(
-                          "El número total de días en los que completaste todos tus habitos",
-                          style: Themes().subTitleStyle),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      Text("3 Dias", style: Themes().subTitleStyle)
-                    ],
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Total de días magníficos",
+                        style: Themes().subHeadingTextStyle),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Text("El número total de días en los",
+                        style: Themes().subTitleStyle),
+                    Text("que completaste todos tus habitos",
+                        style: Themes().subTitleStyle),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Text("3 Dias", style: Themes().subTitleStyle)
+                  ],
+                ),
+                SizedBox(
+                  width: 40.w,
                 ),
                 const Icon(
                   Icons.calendar_month,
                   color: pinkClr,
-                  size: 24.0,
+                  size: 40.0,
                 ),
               ],
             ),
@@ -233,6 +234,13 @@ class _StatsScreenState extends State<StatsScreen> {
       toolbarHeight: 60.h,
       backgroundColor: Colors.transparent,
       elevation: 0,
+      leading: IconButton(
+        onPressed: () => Get.back(),
+        icon: Icon(
+          Icons.arrow_back_ios,
+          color: _themeController.color,
+        ),
+      ),
       centerTitle: true,
       title: Text(
         'Estadisticas',
