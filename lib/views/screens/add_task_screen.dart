@@ -212,7 +212,7 @@ class AddTaskScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Button(label: 'Create Task', onTap: () => _validateTask())
+                  Button(label: 'Crear tarea', onTap: () => _validateTask())
                 ],
               )
             ],
@@ -324,6 +324,7 @@ class AddTaskScreen extends StatelessWidget {
 
   _getDateFromUser(BuildContext context) async {
     DateTime? pickerDate = await showDatePicker(
+        locale: const Locale('es', ''),
         context: context,
         firstDate: DateTime(2012),
         initialDate: DateTime.now(),

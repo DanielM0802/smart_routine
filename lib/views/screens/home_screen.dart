@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _addTask(),
+                _showDate(),
                 SizedBox(
                   height: 12.h,
                 ),
@@ -79,6 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         '',
                         style: Themes().headingTextStyle,
                       )),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(bottom: 6.0),
+                  child: _addTask(),
                 )
               ],
             ),
@@ -257,6 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _addDateBar() => SizedBox(
         child: DatePicker(
+          locale: "es-es",
           DateTime.now(),
           height: 84.h,
           width: 64.w,
@@ -289,6 +294,22 @@ class _HomeScreenState extends State<HomeScreen> {
       );
 
   Widget _addTask() => Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Button(
+            label: '+ Crear tarea',
+            onTap: () async {
+              await Get.to(
+                () => AddTaskScreen(),
+                transition: Transition.rightToLeft,
+              );
+              _homeController.getTasks();
+            },
+          ),
+        ],
+      );
+
+  Widget _showDate() => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
@@ -301,20 +322,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: Themes().subHeadingTextStyle,
               ),
               Text(
-                'Today',
+                'Hoy',
                 style: Themes().headingTextStyle,
               ),
             ],
-          ),
-          Button(
-            label: '+ Add Task',
-            onTap: () async {
-              await Get.to(
-                () => AddTaskScreen(),
-                transition: Transition.rightToLeft,
-              );
-              _homeController.getTasks();
-            },
           ),
         ],
       );
