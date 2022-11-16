@@ -12,7 +12,7 @@ class ThemeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _color.value = Colors.black;
+    _color.value = Colors.white;
   }
 
   ThemeMode get theme => ThemeMode.dark;
@@ -20,7 +20,7 @@ class ThemeController extends GetxController {
 
   switchTheme() async {
     Get.changeThemeMode(theme);
-    _color.value = _loadThemeFromBox ? Colors.white : Colors.black;
+    _color.value = Colors.white;
     await _box.write(_key, !_loadThemeFromBox);
   }
 }
