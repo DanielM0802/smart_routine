@@ -16,6 +16,7 @@ class StatsScreen extends StatefulWidget {
 
 class _StatsScreenState extends State<StatsScreen> {
   final _themeController = Get.find<ThemeController>();
+  final double _padding = 12;
 
   @override
   void initState() {
@@ -24,28 +25,29 @@ class _StatsScreenState extends State<StatsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width - _padding * 2;
     return Scaffold(
-      appBar: _appBar(),
+      appBar: _appBar(width),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 12.w),
+        padding: EdgeInsets.symmetric(horizontal: _padding),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: 25.h,
             ),
-            const FittedBox(
+            FittedBox(
                 fit: BoxFit.fill,
                 child: DecoratedBox(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: pinkClr,
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: 346 / 2, vertical: 10),
-                      child: Text(
+                          horizontal: width / 2, vertical: 10),
+                      child: const Text(
                         "Hábitos",
                         style: TextStyle(
                             color: Colors.white,
@@ -58,32 +60,37 @@ class _StatsScreenState extends State<StatsScreen> {
             SizedBox(
               height: 25.h,
             ),
-            _rampageDays(),
+            _rampageDays(width),
             SizedBox(
               height: 25.h,
             ),
-            _currentRampage(),
+            _currentRampage(width),
             SizedBox(
               height: 25.h,
             ),
-            _recordStats()
+            _recordStats(width)
           ],
         ),
       ),
     );
   }
 
-  _recordStats() {
+  _recordStats(double width) {
+    const double middleSpace = 40;
     return Row(
       children: [
-        FittedBox(
-          fit: BoxFit.fill,
+        SizedBox(
+          width: (width - middleSpace) / 2,
+          height: 200,
           child: DecoratedBox(
-              decoration: const BoxDecoration(
-                  color: primaryColor,
-                  borderRadius: BorderRadius.all(Radius.circular(5))),
+            decoration: const BoxDecoration(
+                color: primaryColor,
+                borderRadius: BorderRadius.all(Radius.circular(5))),
+            child: FittedBox(
+              fit: BoxFit.contain,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(22, 20, 22, 27),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -102,37 +109,44 @@ class _StatsScreenState extends State<StatsScreen> {
                     Text("Mejor racha", style: Themes().subTitleStyle)
                   ],
                 ),
-              )),
+              ),
+            ),
+          ),
         ),
         const SizedBox(
-          width: 113,
+          width: middleSpace,
         ),
-        FittedBox(
-          fit: BoxFit.fill,
+        SizedBox(
+          width: (width - middleSpace) / 2,
+          height: 200,
           child: DecoratedBox(
               decoration: const BoxDecoration(
                   color: primaryColor,
                   borderRadius: BorderRadius.all(Radius.circular(5))),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.checklist,
-                      color: pinkClr,
-                      size: 60.0,
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Text("17", style: Themes().subHeadingTextStyle),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    Text("Total de hábitos", style: Themes().subTitleStyle),
-                    Text("completados", style: Themes().subTitleStyle)
-                  ],
+              child: FittedBox(
+                fit: BoxFit.contain,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.checklist,
+                        color: pinkClr,
+                        size: 60.0,
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Text("17", style: Themes().subHeadingTextStyle),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Text("Total de hábitos", style: Themes().subTitleStyle),
+                      Text("completados", style: Themes().subTitleStyle)
+                    ],
+                  ),
                 ),
               )),
         )
@@ -140,59 +154,64 @@ class _StatsScreenState extends State<StatsScreen> {
     );
   }
 
-  _currentRampage() {
-    return FittedBox(
-      fit: BoxFit.fill,
+  _currentRampage(double width) {
+    return SizedBox(
+      width: width,
       child: DecoratedBox(
           decoration: const BoxDecoration(
               color: primaryColor,
               borderRadius: BorderRadius.all(Radius.circular(5))),
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 40, 20),
-            child: Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Tu racha actual",
-                        style: Themes().subHeadingTextStyle),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Text("El número consecutivo de los días",
-                        style: Themes().subTitleStyle),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    Text("en los que completaste todos tus hábitos",
-                        style: Themes().subTitleStyle),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Text("3 Dias", style: Themes().subTitleStyle)
-                  ],
-                ),
-                SizedBox(
-                  width: 40.w,
-                ),
-                const Icon(
-                  Icons.flash_on,
-                  color: pinkClr,
-                  size: 40.0,
-                ),
-              ],
+          child: FittedBox(
+            fit: BoxFit.fill,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 40, 20),
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Tu racha actual",
+                          style: Themes().subHeadingTextStyle),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Text("El número consecutivo de los días",
+                          style: Themes().subTitleStyle),
+                      SizedBox(
+                        height: 1.h,
+                      ),
+                      Text("en los que completaste todos tus hábitos",
+                          style: Themes().subTitleStyle),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Text("3 Dias", style: Themes().subTitleStyle)
+                    ],
+                  ),
+                  SizedBox(
+                    width: 40.w,
+                  ),
+                  const Icon(
+                    Icons.flash_on,
+                    color: pinkClr,
+                    size: 40.0,
+                  ),
+                ],
+              ),
             ),
           )),
     );
   }
 
-  _rampageDays() {
+  _rampageDays(double width) {
     return FittedBox(
       fit: BoxFit.fill,
       child: DecoratedBox(
-          decoration: const BoxDecoration(
-              color: primaryColor,
-              borderRadius: BorderRadius.all(Radius.circular(5))),
+        decoration: const BoxDecoration(
+            color: primaryColor,
+            borderRadius: BorderRadius.all(Radius.circular(5))),
+        child: FittedBox(
+          fit: BoxFit.fill,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 20, 40, 20),
             child: Row(
@@ -225,11 +244,13 @@ class _StatsScreenState extends State<StatsScreen> {
                 ),
               ],
             ),
-          )),
+          ),
+        ),
+      ),
     );
   }
 
-  _appBar() {
+  _appBar(double width) {
     return AppBar(
       toolbarHeight: 60.h,
       backgroundColor: Colors.transparent,
