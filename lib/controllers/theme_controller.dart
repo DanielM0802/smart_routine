@@ -12,10 +12,10 @@ class ThemeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _color.value = _loadThemeFromBox ? Colors.white : Colors.black;
+    _color.value = Colors.black;
   }
 
-  ThemeMode get theme => _loadThemeFromBox ? ThemeMode.dark : ThemeMode.light;
+  ThemeMode get theme => ThemeMode.dark;
   bool get _loadThemeFromBox => _box.read(_key) ?? false;
 
   switchTheme() async {
