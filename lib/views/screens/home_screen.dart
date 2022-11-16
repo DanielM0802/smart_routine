@@ -7,6 +7,7 @@ import 'package:smart_routine/models/task.dart';
 import 'package:smart_routine/providers/notification_provider.dart';
 import 'package:smart_routine/views/screens/add_task_screen.dart';
 import 'package:smart_routine/views/screens/all_tasks_screen.dart';
+import 'package:smart_routine/views/screens/stats_screen.dart';
 import 'package:smart_routine/views/widgets/bottom_sheet_button.dart';
 import 'package:smart_routine/views/widgets/button.dart';
 import 'package:smart_routine/views/widgets/task_tile.dart';
@@ -242,9 +243,12 @@ class _HomeScreenState extends State<HomeScreen> {
             //       ? 'Activated Light Theme'
             //       : 'Activated Dark Theme',
             // );
+            await Get.to(
+              () => StatsScreen(),
+              transition: Transition.rightToLeft,
+            );
           },
-          icon:
-              Icon(Get.isDarkMode ? Icons.mode_night_outlined : Icons.wb_sunny),
+          icon: Icon(Icons.auto_graph),
           color: _themeController.color,
         ),
       ],
