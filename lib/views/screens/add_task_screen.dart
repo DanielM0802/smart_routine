@@ -236,8 +236,9 @@ class AddTaskScreen extends StatelessWidget {
         color: _addTaskController.selectedColorIndex,
         repeat: _addTaskController.selectedRepeat,
         isCompleted: 0,
+        failed: 0,
       );
-      //await _addTaskController.addTaskToDB(task);
+      await _addTaskController.addTaskToDB(task);
       Get.back();
     } else {
       // Get.snackbar(

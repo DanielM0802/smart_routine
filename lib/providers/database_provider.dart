@@ -25,7 +25,7 @@ class DatabaseProvider {
           title STRING, note TEXT, date STRING,
           startTime STRING, endTime STRING,
           remind INTEGER, repeat STRING,
-          color INTEGER, isCompleted INTEGER)
+          color INTEGER, isCompleted INTEGER, failed INTEGER)
         '''));
     } catch (e) {
       Get.snackbar(
