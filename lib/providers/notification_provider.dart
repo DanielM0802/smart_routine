@@ -44,7 +44,7 @@ class NotificationProvider {
     await flutterLocalNotificationsPlugin.zonedSchedule(
       task.id!,
       task.title,
-      task.note,
+      "",
       // tz.TZDateTime.from(
       //   DateTime.now().add(
       //     Duration(
@@ -64,7 +64,7 @@ class NotificationProvider {
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
-      payload: '${task.title}|${task.note}|${task.startTime}',
+      payload: '${task.title}|${task.startTime}',
     );
   }
 
@@ -91,7 +91,6 @@ class NotificationProvider {
     final String startTime = payload.split('|')[2];
     Get.to(() => NotificationScreen(
           title: title,
-          note: note,
           startTime: startTime,
         ));
   }

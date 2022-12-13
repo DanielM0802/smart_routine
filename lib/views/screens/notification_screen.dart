@@ -8,12 +8,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NotificationScreen extends StatelessWidget {
   final String title;
-  final String note;
   final String startTime;
   NotificationScreen({
     Key? key,
     required this.title,
-    required this.note,
     required this.startTime,
   }) : super(key: key);
 
@@ -125,13 +123,6 @@ class NotificationScreen extends StatelessWidget {
                     ),
                     SizedBox(
                       height: 6.h,
-                    ),
-                    Text(
-                      note,
-                      style: GoogleFonts.lato(
-                        fontSize: 14.sp,
-                        color: Colors.white,
-                      ),
                     ),
                     SizedBox(
                       height: 16.h,

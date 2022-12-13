@@ -20,7 +20,6 @@ class AddTaskScreen extends StatelessWidget {
   final ThemeController _themeController = Get.find();
 
   final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _noteController = TextEditingController();
 
   final List<String> repeatList = [
     'None',
@@ -119,14 +118,16 @@ class AddTaskScreen extends StatelessWidget {
                       Expanded(
                           child: Button(
                               label: 'Diariamente',
-                              onTap: (() => _validateTask()))),
+                              onTap: (() => _addTaskController
+                                  .updateSelectedRepeat("Daily")))),
                       SizedBox(
                         width: 10.w,
                       ),
                       Expanded(
                           child: Button(
                               label: 'Semanalmente',
-                              onTap: (() => _validateTask()))),
+                              onTap: (() => _addTaskController
+                                  .updateSelectedRepeat("Weekly")))),
                     ]),
                     SizedBox(
                       height: 10.w,
@@ -135,7 +136,8 @@ class AddTaskScreen extends StatelessWidget {
                       Expanded(
                           child: Button(
                               label: 'Mensualmente',
-                              onTap: (() => _validateTask()))),
+                              onTap: (() => _addTaskController
+                                  .updateSelectedRepeat("Monthly")))),
                       SizedBox(
                         width: 10.w,
                       ),
@@ -223,9 +225,8 @@ class AddTaskScreen extends StatelessWidget {
   }
 
   _validateTask() async {
-    if (_titleController.text.isNotEmpty || _noteController.text.isNotEmpty) {
+    if (_titleController.text.isNotEmpty) {
       Task task = Task(
-        note: _noteController.text,
         title: _titleController.text,
         date: DateFormat.yMd().format(
           _addTaskController.selectedDate,

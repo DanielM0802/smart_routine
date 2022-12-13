@@ -224,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           CircleAvatar(
             backgroundColor: Colors.transparent,
-            backgroundImage: AssetImage('assets/appicon.png'),
+            //backgroundImage: AssetImage('assets/appicon.png'),
           ),
         ],
       ),

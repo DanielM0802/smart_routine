@@ -1,7 +1,6 @@
 class Task {
   int? id;
   String? title;
-  String? note;
   int? isCompleted;
   int? failed;
   String? date;
@@ -18,7 +17,6 @@ class Task {
     this.endTime,
     this.isCompleted,
     this.failed,
-    this.note,
     this.remind,
     this.repeat,
     this.startTime,
@@ -28,7 +26,6 @@ class Task {
   Task fromJson(Map<String, dynamic> json) => Task(
         id: json['id'],
         title: json['title'],
-        note: json['note'],
         isCompleted: json['isCompleted'],
         failed: json['failed'],
         remind: json['remind'],
@@ -42,7 +39,6 @@ class Task {
   Map<String, dynamic> toMap() => {
         'id': id,
         'title': title,
-        'note': note,
         'isCompleted': isCompleted,
         'failed': failed,
         'remind': remind,
@@ -52,4 +48,6 @@ class Task {
         'date': date,
         'startTime': startTime,
       };
+
+  void showInfo() => {print("$title\n$repeat")};
 }

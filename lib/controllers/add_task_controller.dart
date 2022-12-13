@@ -52,6 +52,8 @@ class AddTaskController extends GetxController {
   }
 
   Future<int> addTaskToDB(Task task) async {
+    print("guardando tarea: ");
+    task.showInfo();
     return await DatabaseProvider.insertTask(task);
   }
 }

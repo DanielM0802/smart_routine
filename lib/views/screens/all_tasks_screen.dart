@@ -26,7 +26,7 @@ class AllTasksScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset('assets/appicon.png'),
+                      //Image.asset('assets/appicon.png'),
                       Text('You do not have any tasks yet!',
                           style: GoogleFonts.lato(
                             fontSize: 14.sp,

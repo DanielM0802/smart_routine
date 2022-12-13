@@ -22,7 +22,7 @@ class DatabaseProvider {
           version: _version, onCreate: (db, version) => db.execute('''
          CREATE TABLE $_tableName(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
-          title STRING, note TEXT, date STRING,
+          title STRING, date STRING,
           startTime STRING, endTime STRING,
           remind INTEGER, repeat STRING,
           color INTEGER, isCompleted INTEGER, failed INTEGER)
