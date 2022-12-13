@@ -77,11 +77,12 @@ class _StatsScreenState extends State<StatsScreen> {
 
   _recordStats(double width) {
     const double middleSpace = 40;
+    const double height = 150;
     return Row(
       children: [
         SizedBox(
           width: (width - middleSpace) / 2,
-          height: 200,
+          height: height,
           child: DecoratedBox(
             decoration: const BoxDecoration(
                 color: primaryColor,
@@ -118,7 +119,7 @@ class _StatsScreenState extends State<StatsScreen> {
         ),
         SizedBox(
           width: (width - middleSpace) / 2,
-          height: 200,
+          height: height,
           child: DecoratedBox(
               decoration: const BoxDecoration(
                   color: primaryColor,
@@ -204,8 +205,8 @@ class _StatsScreenState extends State<StatsScreen> {
   }
 
   _rampageDays(double width) {
-    return FittedBox(
-      fit: BoxFit.fill,
+    return SizedBox(
+      width: width,
       child: DecoratedBox(
         decoration: const BoxDecoration(
             color: primaryColor,
