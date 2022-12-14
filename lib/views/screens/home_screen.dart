@@ -103,7 +103,13 @@ class _HomeScreenState extends State<HomeScreen> {
         final data = _homeController.myTasks[i];
         if (data.repeat == 'Daily') {
           DateTime date = DateFormat.jm().parse(data.startTime!);
+          DateTime dateHabit = DateFormat('MM/dd/yyyy').parse(data.date!);
+
           var myTime = DateFormat("HH:mm").format(date);
+
+          if (dateHabit.isAfter(_homeController.selectedDate)) {
+            return Container();
+          }
 
           notificationProvider.scheduledNotification(
             task: data,
@@ -119,6 +125,18 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: TaskTile(task: data),
           );
+        }
+        //manejando habitos semanales
+        if (data.repeat == 'Weekly') {
+          DateTime date = DateFormat.jm().parse(data.startTime!);
+          if (date.weekday == _homeController.selectedDate.weekday) {
+            return GestureDetector(
+              onTap: () {
+                _showBottomSheet(context, data);
+              },
+              child: TaskTile(task: data),
+            );
+          }
         }
         if (data.date ==
             DateFormat.yMd().format(_homeController.selectedDate)) {
