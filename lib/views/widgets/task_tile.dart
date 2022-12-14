@@ -71,17 +71,6 @@ class TaskTile extends StatelessWidget {
             width: 0.3.w,
             color: Colors.grey.shade200.withOpacity(.7),
           ),
-          RotatedBox(
-            quarterTurns: 3,
-            child: Text(
-              task.isCompleted == 1 ? 'COMPLETE' : 'TODO',
-              style: GoogleFonts.lato(
-                fontSize: 11.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ),
         ],
       ),
     );
