@@ -177,50 +177,57 @@ class _HomeScreenState extends State<HomeScreen> {
             Spacer(),
             task.isCompleted == 1
                 ? Container()
-                : BottomSheetButton(
-                    label: 'Completado',
-                    onTap: () {
-                      _homeController.upDateTask(task.id.toString());
-                      _homeController.getTasks();
-                      Get.back();
-                      Get.snackbar(
-                        'Hecho!',
-                        'Hábito "${task.title}" completado!',
-                        backgroundColor: Get.isDarkMode
-                            ? Color(0xFF212121)
-                            : Colors.grey.shade100,
-                        colorText: Get.isDarkMode ? Colors.white : Colors.black,
-                      );
-                    },
-                    color: primaryColor,
+                : Column(
+                    children: [
+                      BottomSheetButton(
+                        label: 'Completado',
+                        onTap: () {
+                          _homeController.upDateTask(task.id.toString());
+                          _homeController.getTasks();
+                          Get.back();
+                          Get.snackbar(
+                            'Hecho!',
+                            'Hábito "${task.title}" completado!',
+                            backgroundColor: Get.isDarkMode
+                                ? Color(0xFF212121)
+                                : Colors.grey.shade100,
+                            colorText:
+                                Get.isDarkMode ? Colors.white : Colors.black,
+                          );
+                        },
+                        color: primaryColor,
+                      ),
+                      BottomSheetButton(
+                        label: 'Omitir',
+                        onTap: () {
+                          _homeController.failTask(task.id.toString());
+                          _homeController.getTasks();
+                          Get.back();
+                          Get.snackbar(
+                            'Tarea omitida',
+                            'Tarea "${task.title}" omitida.',
+                            backgroundColor: Get.isDarkMode
+                                ? Color(0xFF212121)
+                                : Colors.grey.shade100,
+                            colorText:
+                                Get.isDarkMode ? Colors.white : Colors.black,
+                          );
+                        },
+                        color: pinkClr,
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      BottomSheetButton(
+                        label: 'Cerrar',
+                        onTap: () {
+                          Get.back();
+                        },
+                        color: pinkClr,
+                        isClosed: true,
+                      )
+                    ],
                   ),
-            BottomSheetButton(
-              label: 'Omitir',
-              onTap: () {
-                _homeController.deleteTask(task.id.toString());
-                _homeController.getTasks();
-                Get.back();
-                Get.snackbar(
-                  'Tarea omitida',
-                  'Tarea "${task.title}" omitida.',
-                  backgroundColor:
-                      Get.isDarkMode ? Color(0xFF212121) : Colors.grey.shade100,
-                  colorText: Get.isDarkMode ? Colors.white : Colors.black,
-                );
-              },
-              color: pinkClr,
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            BottomSheetButton(
-              label: 'Cerrar',
-              onTap: () {
-                Get.back();
-              },
-              color: pinkClr,
-              isClosed: true,
-            ),
             SizedBox(
               height: 10.h,
             ),
@@ -248,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       centerTitle: true,
       title: Text(
-        'Mis hábitos',
+        'Hoy',
         style: GoogleFonts.lato(
           color: _themeController.color,
           fontWeight: FontWeight.bold,
@@ -314,21 +321,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _addTask() => Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          ElevatedButton(
-            onPressed: () async {
+          Button(
+            label: '+ Crear tarea',
+            onTap: () async {
               await Get.to(
                 () => AddTaskScreen(),
                 transition: Transition.rightToLeft,
               );
               _homeController.getTasks();
             },
-            child: Text("+ Crear hábito"),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: pinkClr,
-              shape: RoundedRectangleBorder(
-                  //to set border radius to button
-                  borderRadius: BorderRadius.circular(15)),
-            ),
           ),
         ],
       );
@@ -346,7 +347,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: Themes().subHeadingTextStyle,
               ),
               Text(
-                'Calendario semanal',
+                'Hoy',
                 style: Themes().headingTextStyle,
               ),
             ],

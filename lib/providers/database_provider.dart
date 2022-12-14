@@ -53,6 +53,14 @@ WHERE id = ?
 ''', [1, id]);
   }
 
+  static Future<int> failTask(String id) async {
+    return await _db!.rawUpdate('''
+UPDATE $_tableName 
+SET failed = ?
+WHERE id = ? 
+''', [1, id]);
+  }
+
   static Future<List<Map<String, dynamic>>> queryTasks() async {
     return await _db!.query(_tableName);
   }

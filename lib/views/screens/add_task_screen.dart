@@ -215,19 +215,9 @@ class AddTaskScreen extends StatelessWidget {
                 height: 15.h,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  _colorPallete(),
-                  ElevatedButton(
-                    onPressed: () => _validateTask(),
-                    child: Text("Crear hábito"),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: pinkClr,
-                      shape: RoundedRectangleBorder(
-                          //to set border radius to button
-                          borderRadius: BorderRadius.circular(15)),
-                    ),
-                  ),
+                  Button(label: 'Crear tarea', onTap: () => _validateTask())
                 ],
               )
             ],
@@ -268,6 +258,10 @@ class AddTaskScreen extends StatelessWidget {
   Widget _colorPallete() => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text(
+            'Color',
+            style: Themes().titleStyle,
+          ),
           SizedBox(
             height: 3.h,
           ),
