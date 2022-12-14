@@ -154,17 +154,36 @@ class AddTaskScreen extends StatelessWidget {
                     ),
                     Row(children: [
                       Expanded(
-                          child: Button(
-                              label: 'Mensualmente',
-                              onTap: (() => _addTaskController
-                                  .updateSelectedRepeat("Monthly")))),
+                        child: ElevatedButton(
+                          onPressed: () => {
+                            selected = "Monthly",
+                            _addTaskController.updateSelectedRepeat("Monthly")
+                          },
+                          child: Text("Mensualmente"),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: selected == "Monthly"
+                                ? selectedColor
+                                : primaryColor,
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         width: 10.w,
                       ),
                       Expanded(
-                          child: Button(
-                              label: 'Una vez',
-                              onTap: (() => _validateTask()))),
+                        child: ElevatedButton(
+                          onPressed: () => {
+                            selected = "unaVez",
+                            _addTaskController.updateSelectedRepeat("unaVez")
+                          },
+                          child: Text("Una vez"),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: selected == "unaVez"
+                                ? selectedColor
+                                : primaryColor,
+                          ),
+                        ),
+                      ),
                     ]),
                   ],
                 ),
