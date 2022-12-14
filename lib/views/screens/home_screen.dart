@@ -160,14 +160,14 @@ class _HomeScreenState extends State<HomeScreen> {
             task.isCompleted == 1
                 ? Container()
                 : BottomSheetButton(
-                    label: 'Task Complete',
+                    label: 'Completado',
                     onTap: () {
                       _homeController.upDateTask(task.id.toString());
                       _homeController.getTasks();
                       Get.back();
                       Get.snackbar(
-                        'Completed!',
-                        'Task "${task.title}" completed!',
+                        'Hecho!',
+                        'Hábito "${task.title}" completado!',
                         backgroundColor: Get.isDarkMode
                             ? Color(0xFF212121)
                             : Colors.grey.shade100,
@@ -177,14 +177,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: primaryColor,
                   ),
             BottomSheetButton(
-              label: 'Delete Task',
+              label: 'Omitir',
               onTap: () {
                 _homeController.deleteTask(task.id.toString());
                 _homeController.getTasks();
                 Get.back();
                 Get.snackbar(
-                  'Delete success',
-                  'Task "${task.title}" deleted.',
+                  'Tarea omitida',
+                  'Tarea "${task.title}" omitida.',
                   backgroundColor:
                       Get.isDarkMode ? Color(0xFF212121) : Colors.grey.shade100,
                   colorText: Get.isDarkMode ? Colors.white : Colors.black,
@@ -196,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 20.h,
             ),
             BottomSheetButton(
-              label: 'Close',
+              label: 'Cerrar',
               onTap: () {
                 Get.back();
               },

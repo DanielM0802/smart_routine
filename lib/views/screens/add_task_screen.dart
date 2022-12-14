@@ -28,6 +28,8 @@ class AddTaskScreen extends StatelessWidget {
     'Monthly',
   ];
 
+  String selected = "";
+
   final List<int> reminderList = [
     5,
     10,
@@ -116,18 +118,36 @@ class AddTaskScreen extends StatelessWidget {
                   children: [
                     Row(children: [
                       Expanded(
-                          child: Button(
-                              label: 'Diariamente',
-                              onTap: (() => _addTaskController
-                                  .updateSelectedRepeat("Daily")))),
+                        child: ElevatedButton(
+                          onPressed: () => {
+                            selected = "Daily",
+                            _addTaskController.updateSelectedRepeat("Daily")
+                          },
+                          child: Text("Diariamente"),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: selected == "Daily"
+                                ? selectedColor
+                                : primaryColor,
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         width: 10.w,
                       ),
                       Expanded(
-                          child: Button(
-                              label: 'Semanalmente',
-                              onTap: (() => _addTaskController
-                                  .updateSelectedRepeat("Weekly")))),
+                        child: ElevatedButton(
+                          onPressed: () => {
+                            selected = "Weekly",
+                            _addTaskController.updateSelectedRepeat("Weekly")
+                          },
+                          child: Text("Semanalmente"),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: selected == "Weekly"
+                                ? selectedColor
+                                : primaryColor,
+                          ),
+                        ),
+                      ),
                     ]),
                     SizedBox(
                       height: 10.w,
@@ -149,40 +169,9 @@ class AddTaskScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Row(
-                children: [
-                  Expanded(
-                      child: Button(label: '1', onTap: (() => print('1')))),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Expanded(
-                      child: Button(label: '2', onTap: (() => print('1')))),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Expanded(
-                      child: Button(label: '3', onTap: (() => print('1')))),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Expanded(
-                      child: Button(label: '4', onTap: (() => print('1')))),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Expanded(
-                      child: Button(label: '5', onTap: (() => print('1')))),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Expanded(
-                      child: Button(label: '6', onTap: (() => print('1')))),
-                ],
-              ),
               InputField(
                 hint: DateFormat.yMd().format(_addTaskController.selectedDate),
-                title: 'Comenzaré el',
+                title: 'Fecha',
                 widget: IconButton(
                   onPressed: () => _getDateFromUser(context),
                   icon: Icon(

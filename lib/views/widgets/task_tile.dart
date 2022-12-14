@@ -40,20 +40,20 @@ class TaskTile extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.access_time_rounded,
-                      color: Colors.grey.shade200,
-                      size: 18.sp,
-                    ),
-                    SizedBox(
-                      width: 5.w,
-                    ),
                     Text(
-                      '${task.startTime!} - ${task.endTime!}',
+                      'Vamos a por ello',
                       style: GoogleFonts.lato(
                         fontSize: 13.sp,
                         color: Colors.grey.shade100,
                       ),
+                    ),
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios_outlined,
+                      color: Colors.grey.shade200,
+                      size: 18.sp,
                     ),
                   ],
                 ),
