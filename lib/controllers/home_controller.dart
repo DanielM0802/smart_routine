@@ -23,10 +23,19 @@ class HomeController extends GetxController {
     tasksFromDB.assignAll(
         tasks.reversed.map((data) => Task().fromJson(data)).toList());
     _myTasks.value = tasksFromDB;
+    for (var i = tasks.length - 1; i >= 0; i--) {
+      if (myTasks[i].isCompleted == 1 || myTasks[i].failed == 1) {
+        myTasks.removeAt(i);
+      }
+    }
   }
 
   Future<int> deleteTask(String id) async {
     return await DatabaseProvider.deleteTask(id);
+  }
+
+  Future<int> failTask(String id) async {
+    return await DatabaseProvider.failTask(id);
   }
 
   Future<int> upDateTask(String id) async {

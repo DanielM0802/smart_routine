@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_routine/constants/colors.dart';
+import 'package:smart_routine/controllers/stats_controller.dart';
+import 'package:smart_routine/models/taskStats.dart';
 
 import '../../constants/theme.dart';
 import '../../controllers/theme_controller.dart';
@@ -16,6 +18,7 @@ class StatsScreen extends StatefulWidget {
 
 class _StatsScreenState extends State<StatsScreen> {
   final _themeController = Get.find<ThemeController>();
+  final StatsController _statsController = Get.put(StatsController());
   final double _padding = 12;
 
   @override
@@ -27,55 +30,99 @@ class _StatsScreenState extends State<StatsScreen> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width - _padding * 2;
     return Scaffold(
-      appBar: _appBar(width),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: _padding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 25.h,
-            ),
-            FittedBox(
-                fit: BoxFit.fill,
-                child: DecoratedBox(
-                  decoration: const BoxDecoration(
-                      color: pinkClr,
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: width / 2, vertical: 10),
-                      child: const Text(
-                        "Hábitos",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
+        appBar: _appBar(width),
+        body: FutureBuilder<TaskStats>(
+          future: _statsController
+              .GetStats(), // a previously-obtained Future<String> or null
+          builder: (BuildContext context, AsyncSnapshot<TaskStats> snapshot) {
+            List<Widget> children;
+            if (snapshot.hasData) {
+              children = <Widget>[_statsPage()];
+            } else if (snapshot.hasError) {
+              children = <Widget>[
+                const Icon(
+                  Icons.error_outline,
+                  color: Colors.red,
+                  size: 60,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: Text('Error: ${snapshot.error}'),
+                ),
+              ];
+            } else {
+              children = const <Widget>[
+                SizedBox(
+                  width: 60,
+                  height: 60,
+                  child: CircularProgressIndicator(),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 16),
+                  child: Text('Awaiting result...'),
+                ),
+              ];
+            }
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: children,
+              ),
+            );
+          },
+        ));
+  }
+
+  _statsPage() {
+    double width = MediaQuery.of(context).size.width - _padding * 2;
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: _padding),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 25.h,
+          ),
+          FittedBox(
+              fit: BoxFit.fill,
+              child: DecoratedBox(
+                decoration: const BoxDecoration(
+                    color: pinkClr,
+                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: width / 2, vertical: 10),
+                    child: const Text(
+                      "Hábitos",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18),
                     ),
                   ),
-                )),
-            SizedBox(
-              height: 25.h,
-            ),
-            _rampageDays(width),
-            SizedBox(
-              height: 25.h,
-            ),
-            _currentRampage(width),
-            SizedBox(
-              height: 25.h,
-            ),
-            _recordStats(width)
-          ],
-        ),
+                ),
+              )),
+          SizedBox(
+            height: 25.h,
+          ),
+          _rampageDays(width),
+          SizedBox(
+            height: 25.h,
+          ),
+          _currentRampage(width),
+          SizedBox(
+            height: 25.h,
+          ),
+          _recordStats(width, _statsController.myStats.completed,
+              _statsController.myStats.completedPercent.round())
+        ],
       ),
     );
   }
 
-  _recordStats(double width) {
+  _recordStats(double width, int completed, int completedPercent) {
     const double middleSpace = 40;
     const double height = 150;
     return Row(
@@ -96,18 +143,20 @@ class _StatsScreenState extends State<StatsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Icon(
-                      Icons.auto_graph,
+                      Icons.percent_sharp,
                       color: pinkClr,
                       size: 60.0,
                     ),
                     SizedBox(
                       height: 10.h,
                     ),
-                    Text("5 Dias", style: Themes().subHeadingTextStyle),
+                    Text("$completedPercent %",
+                        style: Themes().subHeadingTextStyle),
                     SizedBox(
                       height: 5.h,
                     ),
-                    Text("Mejor racha", style: Themes().subTitleStyle)
+                    Text("De los habitos", style: Themes().subTitleStyle),
+                    Text("completados", style: Themes().subTitleStyle)
                   ],
                 ),
               ),
@@ -140,7 +189,7 @@ class _StatsScreenState extends State<StatsScreen> {
                       SizedBox(
                         height: 10.h,
                       ),
-                      Text("17", style: Themes().subHeadingTextStyle),
+                      Text("$completed", style: Themes().subHeadingTextStyle),
                       SizedBox(
                         height: 5.h,
                       ),
