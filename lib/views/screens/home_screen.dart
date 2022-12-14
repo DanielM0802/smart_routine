@@ -255,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       centerTitle: true,
       title: Text(
-        'Hoy',
+        'Mis hábitos',
         style: GoogleFonts.lato(
           color: _themeController.color,
           fontWeight: FontWeight.bold,
@@ -321,15 +321,21 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _addTask() => Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Button(
-            label: '+ Crear tarea',
-            onTap: () async {
+          ElevatedButton(
+            onPressed: () async {
               await Get.to(
                 () => AddTaskScreen(),
                 transition: Transition.rightToLeft,
               );
               _homeController.getTasks();
             },
+            child: Text("+ Crear hábito"),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: pinkClr,
+              shape: RoundedRectangleBorder(
+                  //to set border radius to button
+                  borderRadius: BorderRadius.circular(15)),
+            ),
           ),
         ],
       );
@@ -347,7 +353,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: Themes().subHeadingTextStyle,
               ),
               Text(
-                'Hoy',
+                'Calendario semanal',
                 style: Themes().headingTextStyle,
               ),
             ],
