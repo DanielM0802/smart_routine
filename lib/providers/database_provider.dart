@@ -22,7 +22,7 @@ class DatabaseProvider {
           version: _version, onCreate: (db, version) => db.execute('''
          CREATE TABLE $_tableName(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
-          title STRING, date STRING,
+          title STRING, date STRING, dateCompleted STRING, dateOmitted STRING,
           startTime STRING, endTime STRING,
           remind INTEGER, repeat STRING,
           color INTEGER, isCompleted INTEGER, failed INTEGER)
@@ -51,6 +51,23 @@ UPDATE $_tableName
 SET isCompleted = ?
 WHERE id = ? 
 ''', [1, id]);
+  }
+
+  static Future<int> updateDateCompleted(
+      String id, String dateCompleted) async {
+    return await _db!.rawUpdate('''
+UPDATE $_tableName 
+SET dateCompleted = ?
+WHERE id = ? 
+''', [dateCompleted, id]);
+  }
+
+  static Future<int> updateDateOmitted(String id, String dateOmitted) async {
+    return await _db!.rawUpdate('''
+UPDATE $_tableName 
+SET dateOmitted = ?
+WHERE id = ? 
+''', [dateOmitted, id]);
   }
 
   static Future<int> failTask(String id) async {

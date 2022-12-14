@@ -101,6 +101,20 @@ class _HomeScreenState extends State<HomeScreen> {
       itemCount: _homeController.myTasks.length,
       itemBuilder: (_, i) {
         final data = _homeController.myTasks[i];
+
+        final DateFormat formatter = DateFormat('MM/dd/yyyy');
+        String dateSelected = formatter.format(_homeController.selectedDate);
+        String? dateCompleted = data.dateCompleted;
+        String? dateOmitted = data.dateOmitted;
+
+        if (dateOmitted == dateSelected && data.failed == 1) {
+          return Container();
+        }
+
+        if (dateSelected != dateCompleted) {
+          data.isCompleted = 0;
+        }
+
         if (data.repeat == 'Daily') {
           DateTime date = DateFormat.jm().parse(data.startTime!);
           DateTime dateHabit = DateFormat('MM/dd/yyyy').parse(data.date!);
@@ -176,13 +190,17 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Spacer(),
             task.isCompleted == 1
-                ? Container()
+                ? Text("Realizar accion")
                 : Column(
                     children: [
                       BottomSheetButton(
                         label: 'Completado',
                         onTap: () {
                           _homeController.upDateTask(task.id.toString());
+
+                          final DateFormat formatter = DateFormat('MM/dd/yyyy');
+                          _homeController.upDateCompleted(task.id.toString(),
+                              formatter.format(_homeController.selectedDate));
                           _homeController.getTasks();
                           Get.back();
                           Get.snackbar(
@@ -201,6 +219,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         label: 'Omitir',
                         onTap: () {
                           _homeController.failTask(task.id.toString());
+                          final DateFormat formatter = DateFormat('MM/dd/yyyy');
+                          _homeController.upDateOmitted(task.id.toString(),
+                              formatter.format(_homeController.selectedDate));
                           _homeController.getTasks();
                           Get.back();
                           Get.snackbar(
@@ -353,7 +374,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: Themes().subHeadingTextStyle,
               ),
               Text(
-                'Calendario semanal',
+                'Calendario',
                 style: Themes().headingTextStyle,
               ),
             ],

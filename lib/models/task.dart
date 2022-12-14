@@ -4,6 +4,8 @@ class Task {
   int? isCompleted;
   int? failed;
   String? date;
+  String? dateCompleted;
+  String? dateOmitted;
   String? startTime;
   String? endTime;
   int? color;
@@ -14,6 +16,8 @@ class Task {
     this.id,
     this.color,
     this.date,
+    this.dateCompleted,
+    this.dateOmitted,
     this.endTime,
     this.isCompleted,
     this.failed,
@@ -34,6 +38,8 @@ class Task {
         color: json['color'],
         endTime: json['endTime'],
         date: json['date'],
+        dateCompleted: json['dateCompleted'],
+        dateOmitted: json['dateOmitted'],
       );
 
   Map<String, dynamic> toMap() => {
@@ -46,6 +52,8 @@ class Task {
         'color': color,
         'endTime': endTime,
         'date': date,
+        'dateCompleted': dateCompleted,
+        'dateOmitted': dateOmitted,
         'startTime': startTime,
       };
 

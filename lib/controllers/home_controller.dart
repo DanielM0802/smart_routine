@@ -25,7 +25,7 @@ class HomeController extends GetxController {
     _myTasks.value = tasksFromDB;
     for (var i = tasks.length - 1; i >= 0; i--) {
       if (myTasks[i].isCompleted == 1 || myTasks[i].failed == 1) {
-        myTasks.removeAt(i);
+        //myTasks.removeAt(i);
       }
     }
   }
@@ -40,6 +40,14 @@ class HomeController extends GetxController {
 
   Future<int> upDateTask(String id) async {
     return await DatabaseProvider.updateTask(id);
+  }
+
+  Future<int> upDateCompleted(String id, String dateCompleted) async {
+    return await DatabaseProvider.updateDateCompleted(id, dateCompleted);
+  }
+
+  Future<int> upDateOmitted(String id, String dateOmitted) async {
+    return await DatabaseProvider.updateDateOmitted(id, dateOmitted);
   }
 
   updateSelectedDate(DateTime date) {

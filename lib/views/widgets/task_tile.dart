@@ -29,10 +29,12 @@ class TaskTile extends StatelessWidget {
                 Text(
                   task.title!,
                   style: GoogleFonts.lato(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      decoration: task.isCompleted == 1
+                          ? TextDecoration.lineThrough
+                          : TextDecoration.none),
                 ),
                 SizedBox(
                   height: 6.h,
