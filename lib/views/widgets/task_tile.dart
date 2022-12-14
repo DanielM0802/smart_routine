@@ -55,6 +55,24 @@ class TaskTile extends StatelessWidget {
                       color: Colors.grey.shade200,
                       size: 18.sp,
                     ),
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    Icon(
+                      Icons.access_time_rounded,
+                      color: Colors.grey.shade200,
+                      size: 18.sp,
+                    ),
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    Text(
+                      '${task.startTime!}',
+                      style: GoogleFonts.lato(
+                        fontSize: 13.sp,
+                        color: Colors.grey.shade100,
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(

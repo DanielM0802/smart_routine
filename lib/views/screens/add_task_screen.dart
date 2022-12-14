@@ -21,21 +21,13 @@ class AddTaskScreen extends StatelessWidget {
 
   final TextEditingController _titleController = TextEditingController();
 
-  final List<String> repeatList = [
-    'None',
-    'Daily',
-    'Weekly',
-    'Monthly',
+  final List<String> timeUnits = [
+    'Minutos',
+    'Horas',
   ];
 
   String selected = "";
-
-  final List<int> reminderList = [
-    5,
-    10,
-    15,
-    20,
-  ];
+  String selectedTimeUnit = "Minutos";
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +59,7 @@ class AddTaskScreen extends StatelessWidget {
                   ),
                   Expanded(
                     child: InputField(
-                      hint: 'Minutos',
+                      hint: selectedTimeUnit,
                       title: '',
                       widget: SizedBox(
                         width: 50.w,
@@ -79,7 +71,7 @@ class AddTaskScreen extends StatelessWidget {
                             ),
                             //customItemsHeight: 8.h,
                             items: [
-                              ...repeatList.map(
+                              ...timeUnits.map(
                                 (item) => DropdownMenuItem<String>(
                                   value: item.toString(),
                                   child: Text(
@@ -91,8 +83,11 @@ class AddTaskScreen extends StatelessWidget {
                                 ),
                               ),
                             ],
-                            onChanged: (val) => _addTaskController
-                                .updateSelectedRepeat(val.toString()),
+                            onChanged: (val) => {
+                              _addTaskController
+                                  .updateSelectedRepeat(val.toString()),
+                              selectedTimeUnit = val.toString()
+                            },
                             itemHeight: 30.h,
                             dropdownPadding: EdgeInsets.all(
                               8,
