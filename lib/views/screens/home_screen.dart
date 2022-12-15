@@ -190,6 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         label: 'Completado',
                         onTap: () {
                           _homeController.completeTask(task.id);
+                          _homeController.getTasks();
                           Get.back();
                           Get.snackbar(
                             'Hecho!',

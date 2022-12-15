@@ -124,7 +124,7 @@ class _StatsScreenState extends State<StatsScreen> {
 
   _recordStats(double width, int completed, int completedPercent) {
     const double middleSpace = 40;
-    const double height = 150;
+    const double height = 130;
     return Row(
       children: [
         SizedBox(
