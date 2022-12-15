@@ -107,11 +107,11 @@ class _StatsScreenState extends State<StatsScreen> {
           SizedBox(
             height: 25.h,
           ),
-          _rampageDays(width),
+          _rampageDays(width, _statsController.myStats.bestScore),
           SizedBox(
             height: 25.h,
           ),
-          _currentRampage(width),
+          _currentRampage(width, _statsController.myStats.currentScore),
           SizedBox(
             height: 25.h,
           ),
@@ -204,7 +204,7 @@ class _StatsScreenState extends State<StatsScreen> {
     );
   }
 
-  _currentRampage(double width) {
+  _currentRampage(double width, int currentBest) {
     return SizedBox(
       width: width,
       child: DecoratedBox(
@@ -225,17 +225,21 @@ class _StatsScreenState extends State<StatsScreen> {
                       SizedBox(
                         height: 10.h,
                       ),
-                      Text("El número consecutivo de los días",
+                      Text("El número consecutivo de",
                           style: Themes().subTitleStyle),
                       SizedBox(
                         height: 1.h,
                       ),
-                      Text("en los que completaste todos tus hábitos",
+                      Text("habitos completados",
                           style: Themes().subTitleStyle),
                       SizedBox(
                         height: 10.h,
                       ),
-                      Text("3 Dias", style: Themes().subTitleStyle)
+                      currentBest > 1
+                          ? Text("$currentBest Habitos",
+                              style: Themes().subTitleStyle)
+                          : Text("$currentBest Habito",
+                              style: Themes().subTitleStyle)
                     ],
                   ),
                   SizedBox(
@@ -253,7 +257,7 @@ class _StatsScreenState extends State<StatsScreen> {
     );
   }
 
-  _rampageDays(double width) {
+  _rampageDays(double width, int best) {
     return SizedBox(
       width: width,
       child: DecoratedBox(
@@ -269,19 +273,20 @@ class _StatsScreenState extends State<StatsScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Total de días magníficos",
-                        style: Themes().subHeadingTextStyle),
+                    Text("Tu mejor racha", style: Themes().subHeadingTextStyle),
                     SizedBox(
                       height: 10.h,
                     ),
-                    Text("El número total de días en los",
+                    Text("La mayor cantidad de habitos",
                         style: Themes().subTitleStyle),
-                    Text("que completaste todos tus habitos",
+                    Text("consecutivos completados",
                         style: Themes().subTitleStyle),
                     SizedBox(
                       height: 10.h,
                     ),
-                    Text("3 Dias", style: Themes().subTitleStyle)
+                    best > 1
+                        ? Text("$best Habitos", style: Themes().subTitleStyle)
+                        : Text("$best Habito", style: Themes().subTitleStyle)
                   ],
                 ),
                 SizedBox(

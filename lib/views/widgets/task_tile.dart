@@ -6,7 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TaskTile extends StatelessWidget {
   final Task task;
-  TaskTile({Key? key, required this.task}) : super(key: key);
+  final bool completed;
+  TaskTile({Key? key, required this.task, required this.completed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class TaskTile extends StatelessWidget {
                       fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
-                      decoration: task.isCompleted == 1
+                      decoration: completed
                           ? TextDecoration.lineThrough
                           : TextDecoration.none),
                 ),

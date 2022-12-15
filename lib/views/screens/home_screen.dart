@@ -101,19 +101,10 @@ class _HomeScreenState extends State<HomeScreen> {
       itemCount: _homeController.myTasks.length,
       itemBuilder: (_, i) {
         final data = _homeController.myTasks[i];
+        final completed = _homeController.isTaskCompletedThisDate(data);
+        final failed = _homeController.isTaskFailedThisDate(data);
 
         final DateFormat formatter = DateFormat('MM/dd/yyyy');
-        String dateSelected = formatter.format(_homeController.selectedDate);
-        String? dateCompleted = data.dateCompleted;
-        String? dateOmitted = data.dateOmitted;
-
-        if (dateOmitted == dateSelected && data.failed == 1) {
-          return Container();
-        }
-
-        if (dateSelected != dateCompleted) {
-          data.isCompleted = 0;
-        }
 
         if (data.repeat == 'Daily') {
           DateTime date = DateFormat.jm().parse(data.startTime!);
@@ -125,19 +116,19 @@ class _HomeScreenState extends State<HomeScreen> {
             return Container();
           }
 
-          notificationProvider.scheduledNotification(
+          /*notificationProvider.scheduledNotification(
             task: data,
             hour: int.parse(myTime.toString().split(':')[0]),
             minutes: int.parse(
                   myTime.toString().split(':')[1],
                 ) -
                 data.remind!,
-          );
+          );*/
           return GestureDetector(
             onTap: () {
               _showBottomSheet(context, data);
             },
-            child: TaskTile(task: data),
+            child: TaskTile(task: data, completed: completed),
           );
         }
         //manejando habitos semanales
@@ -148,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 _showBottomSheet(context, data);
               },
-              child: TaskTile(task: data),
+              child: TaskTile(task: data, completed: completed),
             );
           }
         }
@@ -158,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () {
               _showBottomSheet(context, data);
             },
-            child: TaskTile(task: data),
+            child: TaskTile(task: data, completed: completed),
           );
         } else {
           return Container();
@@ -168,6 +159,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _showBottomSheet(BuildContext context, Task task) {
+    bool completed = _homeController.isTaskCompletedThisDate(task);
+    bool failed = _homeController.isTaskFailedThisDate(task);
     final double height = MediaQuery.of(context).size.height;
     Get.bottomSheet(
       Container(
@@ -175,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.only(
           top: 8,
         ),
-        height: task.isCompleted == 1 ? height * .3.h : height * .4.h,
+        height: (completed || failed) ? height * .3.h : height * .4.h,
         child: Column(
           children: [
             Container(
@@ -189,19 +182,14 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Spacer(),
-            task.isCompleted == 1
+            (completed || failed)
                 ? Text("Realizar accion")
                 : Column(
                     children: [
                       BottomSheetButton(
                         label: 'Completado',
                         onTap: () {
-                          _homeController.upDateTask(task.id.toString());
-
-                          final DateFormat formatter = DateFormat('MM/dd/yyyy');
-                          _homeController.upDateCompleted(task.id.toString(),
-                              formatter.format(_homeController.selectedDate));
-                          _homeController.getTasks();
+                          _homeController.completeTask(task.id);
                           Get.back();
                           Get.snackbar(
                             'Hecho!',
@@ -218,10 +206,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       BottomSheetButton(
                         label: 'Omitir',
                         onTap: () {
-                          _homeController.failTask(task.id.toString());
+                          _homeController.failTask(task.id);
                           final DateFormat formatter = DateFormat('MM/dd/yyyy');
-                          _homeController.upDateOmitted(task.id.toString(),
-                              formatter.format(_homeController.selectedDate));
+                          _homeController.failTask(task.id);
                           _homeController.getTasks();
                           Get.back();
                           Get.snackbar(

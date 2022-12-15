@@ -240,18 +240,14 @@ class AddTaskScreen extends StatelessWidget {
   _validateTask() async {
     if (_titleController.text.isNotEmpty) {
       Task task = Task(
-        title: _titleController.text,
-        date: DateFormat.yMd().format(
-          _addTaskController.selectedDate,
-        ),
-        startTime: _addTaskController.selectedStartTime,
-        endTime: _addTaskController.selectedEndTime,
-        remind: _addTaskController.selectedReminder,
-        color: _addTaskController.selectedColorIndex,
-        repeat: _addTaskController.selectedRepeat,
-        isCompleted: 0,
-        failed: 0,
-      );
+          title: _titleController.text,
+          date: DateFormat.yMd().format(
+            _addTaskController.selectedDate,
+          ),
+          startTime: _addTaskController.selectedStartTime,
+          endTime: _addTaskController.selectedEndTime,
+          color: _addTaskController.selectedColorIndex,
+          repeat: _addTaskController.selectedRepeat);
       await _addTaskController.addTaskToDB(task);
       Get.back();
     } else {

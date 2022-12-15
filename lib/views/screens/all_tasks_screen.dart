@@ -76,7 +76,10 @@ class AllTasksScreen extends StatelessWidget {
           onTap: () {
             _showBottomSheet(context, data);
           },
-          child: TaskTile(task: data),
+          child: TaskTile(
+            task: data,
+            completed: _homeController.isTaskCompletedThisDate(data),
+          ),
         );
       },
     );
@@ -84,13 +87,14 @@ class AllTasksScreen extends StatelessWidget {
 
   _showBottomSheet(BuildContext context, Task task) {
     final double height = MediaQuery.of(context).size.height;
+    bool completed = _homeController.isTaskCompletedThisDate(task);
     Get.bottomSheet(
       Container(
         color: Get.isDarkMode ? darkGreyClr : Colors.white,
         padding: EdgeInsets.only(
           top: 8,
         ),
-        height: task.isCompleted == 1 ? height * .3.h : height * .4.h,
+        height: completed ? height * .3.h : height * .4.h,
         child: Column(
           children: [
             Container(
@@ -104,12 +108,12 @@ class AllTasksScreen extends StatelessWidget {
               ),
             ),
             Spacer(),
-            task.isCompleted == 1
+            completed
                 ? Container()
                 : BottomSheetButton(
                     label: 'Task Complete',
                     onTap: () {
-                      _homeController.upDateTask(task.id.toString());
+                      _homeController.completeTask(task.id);
                       _homeController.getTasks();
                       Get.back();
                       Get.snackbar(
